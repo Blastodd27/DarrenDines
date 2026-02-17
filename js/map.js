@@ -4,6 +4,29 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  // ---------- Mobile Menu Toggle ----------
+  const menuToggle = document.getElementById("menu-toggle");
+  const navLinks = document.getElementById("nav-links");
+
+  if (menuToggle && navLinks) {
+    menuToggle.addEventListener("click", () => {
+      const isVisible = navLinks.style.display === "flex";
+      navLinks.style.display = isVisible ? "none" : "flex";
+      
+      if (!isVisible) {
+        navLinks.style.flexDirection = "column";
+        navLinks.style.position = "absolute";
+        navLinks.style.top = "var(--nav-height)";
+        navLinks.style.left = "0";
+        navLinks.style.right = "0";
+        navLinks.style.background = "var(--color-dark)";
+        navLinks.style.padding = "1rem 2rem";
+        navLinks.style.gap = "1rem";
+        navLinks.style.borderBottom = "1px solid rgba(255, 255, 255, 0.08)";
+      }
+    });
+  }
+
   // ---------- Blog Pin Data ----------
   // To add a new pin: copy one of the objects below and change the values.
   // lat/lng = the GPS coordinates of the restaurant (find on Google Maps)
