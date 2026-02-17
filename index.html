@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A personal food blog exploring the best bites around the world — from street tacos to fine dining. Stories, recipes, and an interactive map of every meal."
+    />
+    <title>The Hungry Compass — A Food Blog</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- ========== NAVIGATION ========== -->
+    <nav class="navbar" id="navbar">
+      <div class="nav-left">
+        <button
+          class="menu-toggle"
+          id="menu-toggle"
+          aria-label="Toggle navigation"
+        >
+          <span></span><span></span><span></span>
+        </button>
+        <div class="nav-links" id="nav-links">
+          <a href="index.html" class="active">Home</a>
+          <a href="#about">About</a>
+          <a href="#posts">Stories</a>
+          <a href="map.html">Map</a>
+        </div>
+      </div>
+
+      <div class="nav-brand">
+        <a href="index.html">The Hungry Compass</a>
+      </div>
+
+      <div class="nav-right">
+        <div class="search-wrapper">
+          <span class="search-icon">🔍</span>
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search stories..."
+            aria-label="Search blog posts"
+          />
+        </div>
+        <a
+          href="map.html"
+          class="map-btn"
+          title="Explore the food map"
+          aria-label="Open food map"
+        >
+          🗺️
+        </a>
+      </div>
+    </nav>
+
+    <!-- ========== HERO ========== -->
+    <section class="hero" id="hero">
+      <img
+        src="images/hero.png"
+        alt="A beautiful spread of global cuisine"
+        class="hero-image"
+      />
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <span class="label">Welcome to</span>
+        <h1>The Hungry Compass</h1>
+        <p>
+          Eating my way around the world — one unforgettable meal at a time.
+          Stories, flavors, and the places that serve them.
+        </p>
+      </div>
+    </section>
+
+    <!-- ========== ABOUT ME ========== -->
+    <section class="section about" id="about">
+      <div class="section-inner">
+        <div class="about-grid">
+          <div class="about-image-wrapper">
+            <img
+              src="images/profile.png"
+              alt="Food blogger portrait"
+              class="about-image"
+            />
+          </div>
+          <div class="about-text">
+            <span class="label">About Me</span>
+            <h2>Hi, I'm Darren.</h2>
+            <p>
+              I'm a food lover, traveler, and storyteller. This blog is my
+              journal of every incredible meal I've had — from tiny street
+              stalls in Tokyo to cozy trattorias in Rome.
+            </p>
+            <p>
+              I believe that food is the best way to understand a place. Every
+              dish has a story: the hands that made it, the culture behind it,
+              and the moment you first taste it. Here, I share those stories
+              with you.
+            </p>
+            <p>
+              When I'm not eating, I'm probably planning where to eat next. Use
+              the <strong>🗺️ map</strong> to explore everywhere I've been —
+              click a pin, read the story, and maybe plan your own adventure.
+            </p>
+            <div class="signature">— Darren</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== MAP BANNER ========== -->
+    <section class="map-banner">
+      <h2>Explore the Food Map</h2>
+      <p>
+        Every pin is a meal worth traveling for. Click to discover the stories
+        behind each bite.
+      </p>
+      <a href="map.html" class="map-banner-btn"> 🗺️ Open the Map </a>
+    </section>
+
+    <!-- ========== BLOG POSTS ========== -->
+    <section class="section" id="posts">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="label">Latest Stories</span>
+          <h2>From the Table</h2>
+          <p>
+            Recent adventures, reviews, and the meals that made me fall in love
+            with a place.
+          </p>
+        </div>
+
+        <!-- Featured Post -->
+        <div class="featured-grid">
+          <a href="posts/post1.html" class="featured-card animate-in">
+            <img
+              src="images/ramen.png"
+              alt="Bowl of tonkotsu ramen"
+              class="featured-card-image"
+            />
+            <div class="featured-card-overlay"></div>
+            <div class="featured-card-content">
+              <span class="label">Tokyo, Japan</span>
+              <h3>Ichiran Ramen: The Bowl That Changed Everything</h3>
+              <p>
+                A solo dining experience in Shinjuku that taught me what ramen
+                is supposed to taste like.
+              </p>
+            </div>
+          </a>
+          <div class="featured-side">
+            <a href="posts/post2.html" class="featured-side-card animate-in">
+              <img src="images/tacos.png" alt="Street tacos al pastor" />
+              <div class="featured-side-card-body">
+                <span class="label">Mexico City</span>
+                <h4>Tacos Al Pastor at El Huequito</h4>
+                <span class="meta">Feb 10, 2026 · 5 min read</span>
+              </div>
+            </a>
+            <a href="posts/post1.html" class="featured-side-card animate-in">
+              <img src="images/ramen.png" alt="Ramen closeup" />
+              <div class="featured-side-card-body">
+                <span class="label">Tokyo, Japan</span>
+                <h4>Late Night Ramen in Shinjuku</h4>
+                <span class="meta">Jan 28, 2026 · 7 min read</span>
+              </div>
+            </a>
+            <a href="posts/post2.html" class="featured-side-card animate-in">
+              <img src="images/tacos.png" alt="Tacos on plate" />
+              <div class="featured-side-card-body">
+                <span class="label">Mexico City</span>
+                <h4>Street Food Tour: Centro Histórico</h4>
+                <span class="meta">Feb 3, 2026 · 6 min read</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- Post Cards Grid -->
+        <div class="posts-grid" id="posts-grid">
+          <a href="posts/post1.html" class="post-card animate-in">
+            <div class="post-card-image-wrapper">
+              <img
+                src="images/ramen.png"
+                alt="Tonkotsu ramen"
+                class="post-card-image"
+              />
+            </div>
+            <div class="post-card-body">
+              <span class="label">Tokyo, Japan</span>
+              <h3>Ichiran Ramen: The Bowl That Changed Everything</h3>
+              <p class="excerpt">
+                Sitting in a solo booth in Shinjuku, slurping noodles from the
+                richest, creamiest tonkotsu broth I've ever tasted. This is the
+                ramen experience every traveler needs.
+              </p>
+              <div class="post-card-meta">
+                <span>Jan 28, 2026</span>
+                <span>7 min read</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="posts/post2.html" class="post-card animate-in">
+            <div class="post-card-image-wrapper">
+              <img
+                src="images/tacos.png"
+                alt="Tacos al pastor"
+                class="post-card-image"
+              />
+            </div>
+            <div class="post-card-body">
+              <span class="label">Mexico City, Mexico</span>
+              <h3>Tacos Al Pastor at El Huequito</h3>
+              <p class="excerpt">
+                The birthplace of tacos al pastor. Juicy marinated pork carved
+                right off the trompo, piled onto warm tortillas with pineapple,
+                onion, and the best salsa verde on the planet.
+              </p>
+              <div class="post-card-meta">
+                <span>Feb 10, 2026</span>
+                <span>5 min read</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="posts/post1.html" class="post-card animate-in">
+            <div class="post-card-image-wrapper">
+              <img
+                src="images/hero.png"
+                alt="Food spread"
+                class="post-card-image"
+              />
+            </div>
+            <div class="post-card-body">
+              <span class="label">Travel Guide</span>
+              <h3>My Top 10 Food Cities Around the World</h3>
+              <p class="excerpt">
+                After years of eating my way across continents, these are the
+                cities that left the deepest impression — ranked by how much I
+                think about going back.
+              </p>
+              <div class="post-card-meta">
+                <span>Feb 15, 2026</span>
+                <span>10 min read</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <h3>The Hungry Compass</h3>
+          <p>
+            A personal food blog about the meals, places, and stories that make
+            traveling delicious.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#posts">Stories</a></li>
+            <li><a href="map.html">Food Map</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">Twitter / X</a></li>
+            <li><a href="#">Email</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 The Hungry Compass. All rights reserved.</span>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram">📷</a>
+          <a href="#" aria-label="Twitter">🐦</a>
+          <a href="#" aria-label="Email">✉️</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>

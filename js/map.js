@@ -1,0 +1,130 @@
+/* =============================================
+   MAP.JS — Leaflet Map with Blog Post Pins
+   ============================================= */
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  // ---------- Blog Pin Data ----------
+  // To add a new pin: copy one of the objects below and change the values.
+  // lat/lng = the GPS coordinates of the restaurant (find on Google Maps)
+  // title   = restaurant or location name
+  // caption = a short one-liner about the meal
+  // image   = relative path to a food photo (in the images/ folder)
+  // postUrl = relative path to the blog post HTML file (in the posts/ folder)
+  const blogPins = [
+    {
+      lat: 35.6938,
+      lng: 139.7035,
+      title: "Ichiran Ramen, Shinjuku",
+      caption: "The most unforgettable bowl of tonkotsu ramen — rich, creamy, and perfectly seasoned in a solo booth experience.",
+      image: "images/ramen.png",
+      postUrl: "posts/post1.html"
+    },
+    {
+      lat: 19.4326,
+      lng: -99.1332,
+      title: "El Huequito, Mexico City",
+      caption: "The birthplace of tacos al pastor. Juicy pork carved off the trompo with pineapple, onion, and incredible salsa.",
+      image: "images/tacos.png",
+      postUrl: "posts/post2.html"
+    }
+  ];
+
+  // ---------- Initialize Map ----------
+  const map = L.map('map', {
+    zoomControl: false  // We'll add it in a custom position
+  }).setView([25, 10], 3);  // World view, slightly centered
+
+  // Add zoom control to bottom-right
+  L.control.zoom({ position: 'bottomright' }).addTo(map);
+
+  // ---------- Map Tiles (OpenStreetMap) ----------
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    maxZoom: 19
+  }).addTo(map);
+
+  // ---------- Custom Pin Icon ----------
+  const pinIcon = L.divIcon({
+    className: 'custom-pin-wrapper',
+    html: '<div class="custom-pin"></div>',
+    iconSize: [32, 42],
+    iconAnchor: [16, 42],
+    popupAnchor: [0, -44]
+  });
+
+  // ---------- Add Pins to Map ----------
+  const markers = [];
+
+  blogPins.forEach(pin => {
+    const popupContent = `
+      <div class="popup-card" onclick="window.open('${pin.postUrl}', '_blank')">
+        <img src="${pin.image}" alt="${pin.title}" />
+        <div class="popup-card-body">
+          <h4>${pin.title}</h4>
+          <p>${pin.caption}</p>
+          <span class="popup-link">Read Blog Post →</span>
+        </div>
+      </div>
+    `;
+
+    const marker = L.marker([pin.lat, pin.lng], { icon: pinIcon })
+      .addTo(map)
+      .bindPopup(popupContent, {
+        maxWidth: 280,
+        minWidth: 280,
+        closeButton: true,
+        className: 'custom-popup'
+      });
+
+    // Store marker with pin data for search
+    marker._pinData = pin;
+    markers.push(marker);
+  });
+
+  // ---------- Search Pins ----------
+  const searchInput = document.getElementById('search-input');
+
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase().trim();
+
+      if (!query) {
+        // Show all markers
+        markers.forEach(m => {
+          if (!map.hasLayer(m)) map.addLayer(m);
+        });
+        map.setView([25, 10], 3);
+        return;
+      }
+
+      let found = null;
+
+      markers.forEach(m => {
+        const data = m._pinData;
+        const match =
+          data.title.toLowerCase().includes(query) ||
+          data.caption.toLowerCase().includes(query);
+
+        if (match) {
+          if (!map.hasLayer(m)) map.addLayer(m);
+          found = m;
+        } else {
+          map.removeLayer(m);
+        }
+      });
+
+      // Fly to the first matching pin
+      if (found) {
+        map.flyTo(found.getLatLng(), 12, { duration: 1.5 });
+        found.openPopup();
+      }
+    });
+  }
+
+  // ---------- Fit Bounds to Show All Pins ----------
+  if (markers.length > 0) {
+    const group = L.featureGroup(markers);
+    map.fitBounds(group.getBounds().pad(0.5), { maxZoom: 5 });
+  }
+});
