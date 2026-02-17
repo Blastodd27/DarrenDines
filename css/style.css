@@ -932,6 +932,10 @@ h4 {
 
 /* ---------- Responsive ---------- */
 @media (max-width: 900px) {
+  .navbar {
+    padding: 0 1rem; /* Reduced from var(--space-lg) */
+  }
+
   .nav-links {
     display: none;
   }
@@ -945,9 +949,11 @@ h4 {
     transform: none;
   }
   
-  /* Mobile: Reduce brand size to fit 1 line */
+  /* Mobile: Reduced size + tight leading for stacked text */
   .nav-brand a {
-    font-size: 1.6rem; 
+    font-size: 1.4rem;
+    line-height: 0.85; /* Tight stacked look */
+    display: block; 
   }
 
   .hero {
@@ -958,6 +964,14 @@ h4 {
     left: var(--space-md);
     right: var(--space-md);
     bottom: var(--space-lg);
+  }
+  
+  /* Map Page Scroll Lock */
+  body.map-body {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
   }
 
   .about-grid {
