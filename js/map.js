@@ -32,16 +32,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ---------- Initialize Map ----------
   const map = L.map('map', {
-    zoomControl: false  // We'll add it in a custom position
-  }).setView([25, 10], 3);  // World view, slightly centered
+    zoomControl: false,        // We'll add it in a custom position
+    preferCanvas: true,        // Canvas renderer = faster than SVG for markers
+    updateWhenZooming: false,  // Don't re-render tiles mid-zoom animation
+    updateWhenIdle: true,      // Only load new tiles when movement stops
+    zoomSnap: 1,               // Snap to integer zoom levels
+    zoomAnimation: true,       // Smooth zoom animation
+    markerZoomAnimation: true  // Smooth marker animation on zoom
+  }).setView([25, 10], 3);     // World view, slightly centered
 
   // Add zoom control to bottom-right
   L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-  // ---------- Map Tiles (OpenStreetMap) ----------
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    maxZoom: 19
+  // ---------- Map Tiles (CartoDB Positron — Minimal, Yelp-like style) ----------
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 18,
+    keepBuffer: 4              // Pre-cache surrounding tiles to reduce blank areas
   }).addTo(map);
 
   // ---------- Custom Pin Icon ----------
