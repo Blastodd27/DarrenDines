@@ -944,6 +944,11 @@ h4 {
     position: static;
     transform: none;
   }
+  
+  /* Mobile: Reduce brand size to fit 1 line */
+  .nav-brand a {
+    font-size: 1.6rem; 
+  }
 
   .hero {
     height: 60vh;
@@ -979,8 +984,18 @@ h4 {
     text-align: center;
   }
 
+  /* Compact search for mobile */
   .search-wrapper input {
-    width: 100px;
+    width: 80px;
+    font-size: 0.8rem;
+  }
+  
+  .search-wrapper input::placeholder {
+    color: transparent;
+  }
+  
+  .nav-right {
+    gap: 0.5rem;
   }
 }
 
