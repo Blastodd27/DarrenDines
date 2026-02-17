@@ -53,34 +53,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ---------- Search Functionality ----------
-  const searchInput = document.getElementById("search-input");
-  const postsGrid = document.getElementById("posts-grid");
-
-  if (searchInput && postsGrid) {
-    searchInput.addEventListener("input", (e) => {
-      const query = e.target.value.toLowerCase().trim();
-      const cards = postsGrid.querySelectorAll(".post-card");
-
-      cards.forEach((card) => {
-        const title = card.querySelector("h3")?.textContent.toLowerCase() || "";
-        const excerpt =
-          card.querySelector(".excerpt")?.textContent.toLowerCase() || "";
-        const label =
-          card.querySelector(".label")?.textContent.toLowerCase() || "";
-
-        if (
-          title.includes(query) ||
-          excerpt.includes(query) ||
-          label.includes(query)
-        ) {
-          card.style.display = "";
-        } else {
-          card.style.display = "none";
-        }
-      });
-    });
-  }
+  // ---------- Search ----------
+  // Search is now handled by the unified search module (search.js)
 
   // ---------- Navbar Background on Scroll ----------
   const navbar = document.getElementById("navbar");
