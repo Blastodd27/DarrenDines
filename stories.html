@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Every story, every meal, every place — the full archive of Darren Dines food writing."
+    />
+    <title>Stories — Darren Dines</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- ========== NAVIGATION ========== -->
+    <nav class="navbar" id="navbar">
+      <div class="nav-left">
+        <button
+          class="menu-toggle"
+          id="menu-toggle"
+          aria-label="Toggle navigation"
+        >
+          <span></span><span></span><span></span>
+        </button>
+        <div class="nav-links" id="nav-links">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="stories.html" class="active">Stories</a>
+          <a href="map.html">Map</a>
+        </div>
+      </div>
+
+      <div class="nav-brand">
+        <a href="index.html">Darren Dines</a>
+      </div>
+
+      <div class="nav-right">
+        <div class="search-wrapper">
+          <span class="search-icon">🔍</span>
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search stories..."
+            aria-label="Search blog posts"
+          />
+        </div>
+        <a
+          href="map.html"
+          class="map-btn"
+          title="Explore the food map"
+          aria-label="Open food map"
+        >
+          🗺️
+        </a>
+      </div>
+    </nav>
+
+    <!-- ========== PAGE HEADER ========== -->
+    <header class="page-header">
+      <span class="label">Every Meal Has a Story</span>
+      <h1>Stories</h1>
+      <p>
+        A running archive of the meals, places, and moments that made the trip
+        worth taking.
+      </p>
+    </header>
+
+    <!-- ========== STORIES LIST ========== -->
+    <main>
+      <div class="stories-list">
+
+        <!-- Story 1 -->
+        <a href="posts/post1.html" class="story-item animate-in">
+          <div class="story-item-image-wrapper">
+            <img
+              src="images/ramen.png"
+              alt="Bowl of tonkotsu ramen at Ichiran, Shinjuku"
+              class="story-item-image"
+            />
+          </div>
+          <div class="story-item-content">
+            <span class="label">Tokyo, Japan</span>
+            <h2>Ichiran Ramen: The Bowl That Changed Everything</h2>
+            <div class="story-item-meta">January 28, 2026 &nbsp;·&nbsp; 7 min read</div>
+            <p class="story-item-excerpt">
+              A solo dining experience in Shinjuku that taught me what ramen is
+              supposed to taste like. You sit alone in a booth, a bamboo curtain
+              in front of you, and hands appear from behind it to deliver the
+              richest, most deeply flavored tonkotsu broth I've ever encountered.
+              No distractions. No small talk. Just you and the bowl.
+            </p>
+            <span class="story-read-more">Read Story &rarr;</span>
+          </div>
+        </a>
+
+        <!-- Story 2 -->
+        <a href="posts/post2.html" class="story-item animate-in">
+          <div class="story-item-image-wrapper">
+            <img
+              src="images/tacos.png"
+              alt="Tacos al pastor at El Huequito, Mexico City"
+              class="story-item-image"
+            />
+          </div>
+          <div class="story-item-content">
+            <span class="label">Mexico City, Mexico</span>
+            <h2>Tacos Al Pastor at El Huequito</h2>
+            <div class="story-item-meta">February 10, 2026 &nbsp;·&nbsp; 5 min read</div>
+            <p class="story-item-excerpt">
+              The birthplace of tacos al pastor. Juicy marinated pork carved
+              right off the trompo, piled onto warm handmade tortillas with
+              fresh pineapple, white onion, and the best salsa verde I've ever
+              tasted. Mexico City gave me a lot of great meals. This one was
+              the first and the most unforgettable.
+            </p>
+            <span class="story-read-more">Read Story &rarr;</span>
+          </div>
+        </a>
+
+      </div>
+    </main>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <h3>Darren Dines</h3>
+          <p>
+            Exploring the world one bite at a time. From street food gems to fine
+            dining experiences, join me on my culinary journey.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="stories.html">Stories</a></li>
+            <li><a href="map.html">Food Map</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">Twitter / X</a></li>
+            <li><a href="#">Email</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Darren Dines. All rights reserved.</span>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram">📷</a>
+          <a href="#" aria-label="Twitter">🐦</a>
+          <a href="#" aria-label="Email">✉️</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/search-data.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
