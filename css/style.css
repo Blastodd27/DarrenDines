@@ -1075,7 +1075,7 @@ h4 {
    ============================================= */
 .page-header {
   margin-top: var(--nav-height);
-  padding: var(--space-lg) var(--space-lg) var(--space-md);
+  padding: 0.85rem var(--space-lg) var(--space-md);
   text-align: center;
   border-bottom: 1px solid var(--color-border);
 }
