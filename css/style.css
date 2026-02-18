@@ -955,7 +955,7 @@ h4 {
 
   .nav-brand {
     position: static;
-    transform: none;
+    transform: translateY(-3px); /* Align center with hamburger menu */
   }
   
   /* Mobile: Reduced size + tight leading for stacked text */
