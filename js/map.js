@@ -64,8 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
     markerZoomAnimation: true  // Smooth marker animation on zoom
   }).setView([25, 10], 3);     // World view, slightly centered
 
-  // Add zoom control to bottom-right
-  L.control.zoom({ position: 'bottomright' }).addTo(map);
+  // Zoom control intentionally omitted — users pinch-to-zoom on mobile and scroll-wheel on desktop
 
   // ---------- Map Tiles (CartoDB Positron — Minimal, Yelp-like style) ----------
   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
