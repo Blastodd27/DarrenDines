@@ -801,8 +801,8 @@ h4 {
 
 /* ---------- Map Page ---------- */
 .map-page {
-  /* Use padding instead of margin to prevent gaps */
-  padding-top: var(--nav-height);
+  /* Immersive Map: No padding, content starts at top */
+  padding-top: 0;
   height: 100vh; 
   box-sizing: border-box;
   background: var(--color-dark);
@@ -816,6 +816,11 @@ h4 {
 #map {
   width: 100%;
   height: 100%;
+}
+
+/* Push map controls down below the navbar */
+.leaflet-top {
+  top: calc(var(--nav-height) + 1rem) !important;
 }
 
 /* Leaflet popup overrides */
