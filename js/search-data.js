@@ -7,13 +7,13 @@
 
 const SEARCH_DATA = [
   {
-    title: "Ichiran Ramen: The Bowl That Changed Everything",
-    location: "Tokyo, Japan",
-    excerpt: "A solo dining experience in Shinjuku that taught me what ramen is supposed to taste like. Rich, creamy tonkotsu broth in a private booth.",
-    tags: ["ramen", "japan", "tokyo", "noodles", "shinjuku", "ichiran", "tonkotsu"],
-    image: "images/ramen.png",
+    title: "Gallagher's Steakhouse: A Classic New York Night",
+    location: "New York City",
+    excerpt: "Dry aged beef, wood-fired grills, and a tiramisu so light the waiter ate the entire leftover portion on the subway home. A Midtown institution.",
+    tags: ["steak", "new york", "nyc", "dry aged", "steakhouse", "gallaghers", "midtown", "tiramisu", "fine dining"],
+    image: "images/gallaghers-dry-age.jpg",
     url: "posts/post1.html",
-    date: "Jan 28, 2026"
+    date: "Feb 18, 2026"
   },
   {
     title: "Tacos Al Pastor at El Huequito",

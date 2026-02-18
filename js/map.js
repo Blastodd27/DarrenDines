@@ -36,11 +36,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // postUrl = relative path to the blog post HTML file (in the posts/ folder)
   const blogPins = [
     {
-      lat: 35.6938,
-      lng: 139.7035,
-      title: "Ichiran Ramen, Shinjuku",
-      caption: "The most unforgettable bowl of tonkotsu ramen — rich, creamy, and perfectly seasoned in a solo booth experience.",
-      image: "images/ramen.png",
+      lat: 40.7626,
+      lng: -73.9851,
+      title: "Gallagher's Steakhouse, New York City",
+      caption: "A New York institution since 1927. Dry aged beef, wood-fired grills, and the most unexpectedly transcendent tiramisu.",
+      image: "images/gallaghers-dry-age.jpg",
       postUrl: "posts/post1.html"
     },
     {
