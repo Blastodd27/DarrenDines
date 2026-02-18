@@ -2,12 +2,12 @@
   <rect width="100" height="100" fill="#1a1a1a" rx="10"/>
   <text
     x="50"
-    y="66"
-    font-family="Georgia, 'Times New Roman', serif"
-    font-size="46"
-    font-weight="bold"
-    fill="#c4553a"
+    y="68"
+    font-family="Didot, 'Playfair Display', Georgia, serif"
+    font-size="50"
+    font-weight="400"
+    fill="#ffffff"
     text-anchor="middle"
-    letter-spacing="2"
+    letter-spacing="4"
   >DD</text>
 </svg>
