@@ -2,9 +2,73 @@
    MAIN.JS — Homepage Logic
    ============================================= */
 
-// ---------- Scroll Animations (Intersection Observer) ----------
+// ---------- Render Homepage Posts from SEARCH_DATA ----------
+// This runs first so the animation observer picks up the new elements.
+function renderHomePosts() {
+  if (typeof SEARCH_DATA === 'undefined' || SEARCH_DATA.length === 0) return;
+
+  // --- Featured Grid (large card + side cards) ---
+  const featuredGrid = document.querySelector('.featured-grid');
+  if (featuredGrid) {
+    const featured = SEARCH_DATA[0];
+    const sideItems = SEARCH_DATA.slice(1, 4); // up to 3 side cards
+
+    const sideHTML = sideItems.length > 0
+      ? `<div class="featured-side">
+          ${sideItems.map(post => `
+            <a href="${post.url}" class="featured-side-card animate-in">
+              <img src="${post.image}" alt="${post.title}" />
+              <div class="featured-side-card-body">
+                <span class="label">${post.location}</span>
+                <h4>${post.title}</h4>
+                <span class="meta">${post.date}</span>
+              </div>
+            </a>
+          `).join('')}
+        </div>`
+      : '';
+
+    featuredGrid.innerHTML = `
+      <a href="${featured.url}" class="featured-card animate-in">
+        <img src="${featured.image}" alt="${featured.title}" class="featured-card-image" />
+        <div class="featured-card-overlay"></div>
+        <div class="featured-card-content">
+          <span class="label">${featured.location}</span>
+          <h3>${featured.title}</h3>
+          <p>${featured.excerpt}</p>
+        </div>
+      </a>
+      ${sideHTML}
+    `;
+  }
+
+  // --- Posts Grid (all posts as cards) ---
+  const postsGrid = document.getElementById('posts-grid');
+  if (postsGrid) {
+    postsGrid.innerHTML = SEARCH_DATA.map(post => `
+      <a href="${post.url}" class="post-card animate-in">
+        <div class="post-card-image-wrapper">
+          <img src="${post.image}" alt="${post.title}" class="post-card-image" />
+        </div>
+        <div class="post-card-body">
+          <span class="label">${post.location}</span>
+          <h3>${post.title}</h3>
+          <p class="excerpt">${post.excerpt}</p>
+          <div class="post-card-meta">
+            <span>${post.date}</span>
+          </div>
+        </div>
+      </a>
+    `).join('');
+  }
+}
+
+// Run before DOMContentLoaded observer so animations apply to rendered cards
+renderHomePosts();
+
 document.addEventListener("DOMContentLoaded", () => {
-  // Animate elements when they scroll into view
+
+  // ---------- Scroll Animations (Intersection Observer) ----------
   const animatedElements = document.querySelectorAll(".animate-in");
 
   if ("IntersectionObserver" in window) {
