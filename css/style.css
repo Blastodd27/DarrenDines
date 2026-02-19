@@ -161,6 +161,7 @@ h4 {
 .nav-brand a {
   font-family: var(--font-serif);
   font-size: 2.4rem;
+  line-height: var(--nav-height);
   font-weight: 900;
   color: #ffffff;
   letter-spacing: 0.02em;
