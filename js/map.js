@@ -1,5 +1,6 @@
 /* =============================================
    MAP.JS — Leaflet Map with Blog Post Pins
+   Reads pin data from SEARCH_DATA (search-data.js)
    ============================================= */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -12,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     menuToggle.addEventListener("click", () => {
       const isVisible = navLinks.style.display === "flex";
       navLinks.style.display = isVisible ? "none" : "flex";
-      
+
       if (!isVisible) {
         navLinks.style.flexDirection = "column";
         navLinks.style.position = "absolute";
@@ -27,44 +28,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ---------- Blog Pin Data ----------
-  // To add a new pin: copy one of the objects below and change the values.
-  // lat/lng = the GPS coordinates of the restaurant (find on Google Maps)
-  // title   = restaurant or location name
-  // caption = a short one-liner about the meal
-  // image   = relative path to a food photo (in the images/ folder)
-  // postUrl = relative path to the blog post HTML file (in the posts/ folder)
-  const blogPins = [
-    {
-      lat: 40.7626,
-      lng: -73.9851,
-      title: "Gallagher's Steakhouse, New York City",
-      caption: "A New York institution since 1927. Dry aged beef, wood-fired grills, and the most unexpectedly transcendent tiramisu.",
-      tags: "steak new york nyc dry aged steakhouse gallaghers midtown tiramisu fine dining usa america",
-      image: "images/gallaghers-dry-age.jpg",
-      postUrl: "posts/post1.html"
-    },
-    {
-      lat: 52.9947,
-      lng: -9.3790,
-      title: "Homestead Cottage, Doolin",
-      caption: "A Michelin-starred cottage near the Cliffs of Moher. Steamed John Dory, spring lamb, and a head chef who drove us to the bus stop.",
-      tags: "ireland doolin michelin fine dining seafood lamb homestead cliffs of moher county clare europe",
-      image: "images/homestead-exterior.jpg",
-      postUrl: "posts/post2.html"
-    }
-  ];
+  // ---------- Pin Data from SEARCH_DATA ----------
+  if (typeof SEARCH_DATA === 'undefined' || SEARCH_DATA.length === 0) return;
 
   // ---------- Initialize Map ----------
   const map = L.map('map', {
-    zoomControl: false,        // We'll add it in a custom position
-    preferCanvas: true,        // Canvas renderer = faster than SVG for markers
-    updateWhenZooming: false,  // Don't re-render tiles mid-zoom animation
-    updateWhenIdle: true,      // Only load new tiles when movement stops
-    zoomSnap: 1,               // Snap to integer zoom levels
-    zoomAnimation: true,       // Smooth zoom animation
-    markerZoomAnimation: true  // Smooth marker animation on zoom
-  }).setView([25, 10], 3);     // World view, slightly centered
+    zoomControl: false,
+    preferCanvas: true,
+    updateWhenZooming: false,
+    updateWhenIdle: true,
+    zoomSnap: 1,
+    zoomAnimation: true,
+    markerZoomAnimation: true
+  }).setView([25, 10], 3);
 
   // Zoom control intentionally omitted — users pinch-to-zoom on mobile and scroll-wheel on desktop
 
@@ -73,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
     subdomains: 'abcd',
     maxZoom: 18,
-    keepBuffer: 4              // Pre-cache surrounding tiles to reduce blank areas
+    keepBuffer: 4
   }).addTo(map);
 
   // ---------- Custom Pin Icon ----------
@@ -85,22 +61,24 @@ document.addEventListener('DOMContentLoaded', () => {
     popupAnchor: [0, -44]
   });
 
-  // ---------- Add Pins to Map ----------
+  // ---------- Add Pins to Map from SEARCH_DATA ----------
   const markers = [];
 
-  blogPins.forEach(pin => {
+  SEARCH_DATA.forEach(post => {
+    if (!post.lat || !post.lng) return; // skip entries without coordinates
+
     const popupContent = `
-      <div class="popup-card" onclick="window.open('${pin.postUrl}', '_blank')">
-        <img src="${pin.image}" alt="${pin.title}" />
+      <div class="popup-card" onclick="window.open('${post.url}', '_blank')">
+        <img src="${post.image}" alt="${post.title}" />
         <div class="popup-card-body">
-          <h4>${pin.title}</h4>
-          <p>${pin.caption}</p>
+          <h4>${post.title}</h4>
+          <p>${post.excerpt}</p>
           <span class="popup-link">Read Blog Post →</span>
         </div>
       </div>
     `;
 
-    const marker = L.marker([pin.lat, pin.lng], { icon: pinIcon })
+    const marker = L.marker([post.lat, post.lng], { icon: pinIcon })
       .addTo(map)
       .bindPopup(popupContent, {
         maxWidth: 280,
@@ -109,8 +87,8 @@ document.addEventListener('DOMContentLoaded', () => {
         className: 'custom-popup'
       });
 
-    // Store marker with pin data for search
-    marker._pinData = pin;
+    // Store post data for search
+    marker._pinData = post;
     markers.push(marker);
   });
 
@@ -126,7 +104,6 @@ document.addEventListener('DOMContentLoaded', () => {
       clearTimeout(searchTimeout);
 
       if (!query) {
-        // Show all markers
         markers.forEach(m => {
           if (!map.hasLayer(m)) map.addLayer(m);
         });
@@ -147,7 +124,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         markers.forEach(m => {
           const data = m._pinData;
-          const searchable = (data.title + ' ' + data.caption + ' ' + (data.tags || '')).toLowerCase();
+          const tagStr = Array.isArray(data.tags) ? data.tags.join(' ') : (data.tags || '');
+          const searchable = (data.title + ' ' + data.location + ' ' + data.excerpt + ' ' + tagStr).toLowerCase();
           const match = searchable.includes(query);
 
           if (match) {
@@ -159,11 +137,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (matched.length === 1) {
-          // Single match — fly to it and open popup
           map.flyTo(matched[0].getLatLng(), 12, { duration: 1.5 });
           matched[0].openPopup();
         } else if (matched.length > 1) {
-          // Multiple matches — zoom to fit all of them
           const group = L.featureGroup(matched);
           map.flyToBounds(group.getBounds().pad(0.5), { maxZoom: 5, duration: 1.5 });
         }
