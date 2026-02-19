@@ -124,7 +124,6 @@ h4 {
   justify-content: space-between;
   padding: 0 var(--space-lg);
   z-index: 1000;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .nav-left {
@@ -155,7 +154,8 @@ h4 {
 .nav-brand {
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .nav-brand a {
@@ -255,6 +255,7 @@ h4 {
   min-height: 500px;
   margin-top: var(--nav-height);
   overflow: hidden;
+  background: var(--color-dark);
 }
 
 .hero-image {
