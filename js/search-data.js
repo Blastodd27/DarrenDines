@@ -29,5 +29,17 @@ const SEARCH_DATA = [
     trip: "ireland-june-2025",
     lat: 52.9947,
     lng: -9.3790
+  },
+  {
+    title: "Roti King: Southeast Asia in a London Basement",
+    location: "London, England",
+    excerpt: "Lemongrass broth, snappy shrimp, and a Nasi Lemak so crispy you could hear it over the lunch crowd. A Malaysian basement restaurant that delivers.",
+    tags: ["london", "malaysia", "malaysian", "laksa", "kari laksa", "nasi lemak", "roti king", "soup", "fried chicken", "southeast asia", "uk", "england", "europe", "casual"],
+    image: "images/roti-king-nasi-lemak.jpeg",
+    url: "posts/post3.html",
+    date: "Feb 19, 2026",
+    trip: "london-2026",
+    lat: 51.5254,
+    lng: -0.1340
   }
 ];
