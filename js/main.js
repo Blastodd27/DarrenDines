@@ -6,18 +6,20 @@
 function renderHomePosts() {
   if (typeof SEARCH_DATA === 'undefined' || SEARCH_DATA.length === 0) return;
 
+  const REVERSED_DATA = [...SEARCH_DATA].reverse();
+
   const postsGrid = document.getElementById('posts-grid');
   if (!postsGrid) return;
 
   const PAGE_SIZE = 3;
   let currentPage = 0;
-  const totalPages = Math.ceil(SEARCH_DATA.length / PAGE_SIZE);
+  const totalPages = Math.ceil(REVERSED_DATA.length / PAGE_SIZE);
   const hasMoreThanOnePage = totalPages > 1;
 
   // Build card HTML for a given page
   function getPageCards(page) {
     const start = page * PAGE_SIZE;
-    return SEARCH_DATA.slice(start, start + PAGE_SIZE).map(post => `
+    return REVERSED_DATA.slice(start, start + PAGE_SIZE).map(post => `
       <a href="${post.url}" class="post-card animate-in">
         <div class="post-card-image-wrapper">
           <img src="${post.image}" alt="${post.title}" class="post-card-image" />
@@ -88,10 +90,12 @@ function renderHomePosts() {
 function renderStories() {
   if (typeof SEARCH_DATA === 'undefined' || SEARCH_DATA.length === 0) return;
 
+  const REVERSED_DATA = [...SEARCH_DATA].reverse();
+
   const storiesList = document.getElementById('stories-list');
   if (!storiesList) return;
 
-  storiesList.innerHTML = SEARCH_DATA.map(post => `
+  storiesList.innerHTML = REVERSED_DATA.map(post => `
     <a href="${post.url}" class="story-item animate-in">
       <div class="story-item-image-wrapper">
         <img src="${post.image}" alt="${post.title}" class="story-item-image" />
