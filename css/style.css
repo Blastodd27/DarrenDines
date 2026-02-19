@@ -168,6 +168,12 @@ h4 {
   letter-spacing: 0.02em;
 }
 
+@media (max-width: 768px) {
+  .nav-brand {
+    margin-top: 3px;
+  }
+}
+
 .nav-right {
   display: flex;
   align-items: center;
