@@ -1,16 +1,23 @@
 /* =============================================
-   MAIN.JS — Homepage Logic
+   MAIN.JS — Site-wide Logic
    ============================================= */
 
-// ---------- Render Homepage Posts from SEARCH_DATA ----------
-// This runs first so the animation observer picks up the new elements.
+// ---------- Render Homepage Posts (carousel) ----------
 function renderHomePosts() {
   if (typeof SEARCH_DATA === 'undefined' || SEARCH_DATA.length === 0) return;
 
-  // --- Posts Grid (all posts as equal-sized cards) ---
   const postsGrid = document.getElementById('posts-grid');
-  if (postsGrid) {
-    postsGrid.innerHTML = SEARCH_DATA.map(post => `
+  if (!postsGrid) return;
+
+  const PAGE_SIZE = 3;
+  let currentPage = 0;
+  const totalPages = Math.ceil(SEARCH_DATA.length / PAGE_SIZE);
+  const hasMoreThanOnePage = totalPages > 1;
+
+  // Build card HTML for a given page
+  function getPageCards(page) {
+    const start = page * PAGE_SIZE;
+    return SEARCH_DATA.slice(start, start + PAGE_SIZE).map(post => `
       <a href="${post.url}" class="post-card animate-in">
         <div class="post-card-image-wrapper">
           <img src="${post.image}" alt="${post.title}" class="post-card-image" />
@@ -26,10 +33,83 @@ function renderHomePosts() {
       </a>
     `).join('');
   }
+
+  // Render first page
+  postsGrid.innerHTML = getPageCards(0);
+
+  // Only add the button if there are more than PAGE_SIZE posts
+  if (!hasMoreThanOnePage) return;
+
+  // Create the carousel nav button
+  const btnWrapper = document.createElement('div');
+  btnWrapper.className = 'carousel-nav';
+  btnWrapper.innerHTML = '<button class="carousel-btn" aria-label="Next posts">&rsaquo;</button>';
+  postsGrid.parentNode.insertBefore(btnWrapper, postsGrid.nextSibling);
+
+  const btn = btnWrapper.querySelector('.carousel-btn');
+  const isMobile = () => window.innerWidth <= 768;
+
+  btn.addEventListener('click', () => {
+    currentPage++;
+
+    // If we've shown all pages, go to stories
+    if (currentPage >= totalPages) {
+      window.location.href = 'stories.html';
+      return;
+    }
+
+    if (isMobile()) {
+      // Mobile: append more cards below
+      const newCards = getPageCards(currentPage);
+      postsGrid.insertAdjacentHTML('beforeend', newCards);
+    } else {
+      // Desktop: slide to next page
+      postsGrid.style.opacity = '0';
+      postsGrid.style.transform = 'translateX(40px)';
+      setTimeout(() => {
+        postsGrid.innerHTML = getPageCards(currentPage);
+        postsGrid.style.transform = 'translateX(-40px)';
+        // Force reflow
+        postsGrid.offsetHeight;
+        postsGrid.style.opacity = '1';
+        postsGrid.style.transform = 'translateX(0)';
+      }, 250);
+    }
+
+    // Update button for last page
+    if (currentPage >= totalPages - 1) {
+      btn.textContent = 'View Older Posts';
+      btn.classList.add('carousel-btn-text');
+    }
+  });
 }
 
-// Run before DOMContentLoaded observer so animations apply to rendered cards
+// ---------- Render Stories Page from SEARCH_DATA ----------
+function renderStories() {
+  if (typeof SEARCH_DATA === 'undefined' || SEARCH_DATA.length === 0) return;
+
+  const storiesList = document.getElementById('stories-list');
+  if (!storiesList) return;
+
+  storiesList.innerHTML = SEARCH_DATA.map(post => `
+    <a href="${post.url}" class="story-item animate-in">
+      <div class="story-item-image-wrapper">
+        <img src="${post.image}" alt="${post.title}" class="story-item-image" />
+      </div>
+      <div class="story-item-content">
+        <span class="label">${post.location}</span>
+        <h2>${post.title}</h2>
+        <div class="story-item-meta">${post.date}</div>
+        <p class="story-item-excerpt">${post.excerpt}</p>
+        <span class="story-read-more">Read Story &rarr;</span>
+      </div>
+    </a>
+  `).join('');
+}
+
+// Run renderers before DOMContentLoaded so animation observer picks up elements
 renderHomePosts();
+renderStories();
 
 document.addEventListener("DOMContentLoaded", () => {
 
