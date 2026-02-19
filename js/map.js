@@ -114,10 +114,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ---------- Search Pins ----------
   const searchInput = document.getElementById('search-input');
+  let searchTimeout = null;
 
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
       const query = e.target.value.toLowerCase().trim();
+
+      // Debounce: wait for the user to stop typing before moving the map
+      clearTimeout(searchTimeout);
 
       if (!query) {
         // Show all markers
@@ -128,27 +132,33 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      let found = null;
+      searchTimeout = setTimeout(() => {
+        const matched = [];
 
-      markers.forEach(m => {
-        const data = m._pinData;
-        const match =
-          data.title.toLowerCase().includes(query) ||
-          data.caption.toLowerCase().includes(query);
+        markers.forEach(m => {
+          const data = m._pinData;
+          const match =
+            data.title.toLowerCase().includes(query) ||
+            data.caption.toLowerCase().includes(query);
 
-        if (match) {
-          if (!map.hasLayer(m)) map.addLayer(m);
-          found = m;
-        } else {
-          map.removeLayer(m);
+          if (match) {
+            if (!map.hasLayer(m)) map.addLayer(m);
+            matched.push(m);
+          } else {
+            map.removeLayer(m);
+          }
+        });
+
+        if (matched.length === 1) {
+          // Single match — fly to it and open popup
+          map.flyTo(matched[0].getLatLng(), 12, { duration: 1.5 });
+          matched[0].openPopup();
+        } else if (matched.length > 1) {
+          // Multiple matches — zoom to fit all of them
+          const group = L.featureGroup(matched);
+          map.flyToBounds(group.getBounds().pad(0.5), { maxZoom: 5, duration: 1.5 });
         }
-      });
-
-      // Fly to the first matching pin
-      if (found) {
-        map.flyTo(found.getLatLng(), 12, { duration: 1.5 });
-        found.openPopup();
-      }
+      }, 400);
     });
   }
 
