@@ -16,12 +16,12 @@ const SEARCH_DATA = [
     date: "Feb 18, 2026"
   },
   {
-    title: "Tacos Al Pastor at El Huequito",
-    location: "Mexico City, Mexico",
-    excerpt: "The birthplace of tacos al pastor. Juicy marinated pork carved right off the trompo, piled onto warm tortillas with pineapple and salsa verde.",
-    tags: ["tacos", "mexico", "street food", "al pastor", "el huequito", "pork", "tortillas"],
-    image: "images/tacos.png",
+    title: "Homestead Cottage: A Michelin Star on the Edge of Ireland",
+    location: "Doolin, Ireland",
+    excerpt: "Irish butter, Flaggy Shore oysters, steamed John Dory, and a lamb au jus made 48 hours in advance. The head chef drove us to the bus stop.",
+    tags: ["ireland", "doolin", "michelin", "fine dining", "seafood", "lamb", "homestead", "cliffs of moher", "county clare"],
+    image: "images/homestead-exterior.jpg",
     url: "posts/post2.html",
-    date: "Feb 10, 2026"
+    date: "Feb 18, 2026"
   }
 ];

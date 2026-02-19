@@ -44,11 +44,11 @@ document.addEventListener('DOMContentLoaded', () => {
       postUrl: "posts/post1.html"
     },
     {
-      lat: 19.4326,
-      lng: -99.1332,
-      title: "El Huequito, Mexico City",
-      caption: "The birthplace of tacos al pastor. Juicy pork carved off the trompo with pineapple, onion, and incredible salsa.",
-      image: "images/tacos.png",
+      lat: 52.9947,
+      lng: -9.3790,
+      title: "Homestead Cottage, Doolin",
+      caption: "A Michelin-starred cottage near the Cliffs of Moher. Steamed John Dory, spring lamb, and a head chef who drove us to the bus stop.",
+      image: "images/homestead-exterior.jpg",
       postUrl: "posts/post2.html"
     }
   ];
