@@ -1388,9 +1388,9 @@ h4 {
    SEARCH DROPDOWN
    ============================================= */
 .search-dropdown {
-  position: absolute;
-  top: 100%;
-  right: 0;
+  position: fixed;
+  top: var(--nav-height);
+  right: var(--space-lg);
   width: 420px;
   max-height: 400px;
   overflow-y: auto;

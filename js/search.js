@@ -18,11 +18,10 @@ document.addEventListener('DOMContentLoaded', () => {
   dropdown.className = 'search-dropdown';
   dropdown.id = 'search-dropdown';
 
-  // Insert dropdown right after the navbar
+  // Insert dropdown right after the navbar in the DOM
   const navbar = document.getElementById('navbar');
   if (navbar) {
-    navbar.style.position = 'relative';
-    navbar.appendChild(dropdown);
+    navbar.after(dropdown);
   }
 
   // ---------- Render Results ----------
