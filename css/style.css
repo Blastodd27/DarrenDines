@@ -1293,6 +1293,9 @@ h4 {
 }
 
 .destination-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
   padding: var(--space-md);
   border: 1px solid var(--color-border);
   border-radius: 8px;

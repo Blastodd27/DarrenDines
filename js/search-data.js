@@ -14,6 +14,7 @@ const SEARCH_DATA = [
     image: "images/gallaghers-dry-age.jpg",
     url: "posts/post1.html",
     date: "Feb 18, 2026",
+    trip: "nyc-march-2025",
     lat: 40.7626,
     lng: -73.9851
   },
@@ -25,6 +26,7 @@ const SEARCH_DATA = [
     image: "images/homestead-exterior.jpg",
     url: "posts/post2.html",
     date: "Feb 18, 2026",
+    trip: "ireland-june-2025",
     lat: 52.9947,
     lng: -9.3790
   }

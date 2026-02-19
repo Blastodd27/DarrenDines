@@ -147,9 +147,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ---------- Fit Bounds to Show All Pins ----------
-  if (markers.length > 0) {
-    const group = L.featureGroup(markers);
-    map.fitBounds(group.getBounds().pad(0.5), { maxZoom: 5 });
+  // ---------- Trip Filter from URL or Fit All Pins ----------
+  const urlParams = new URLSearchParams(window.location.search);
+  const tripFilter = urlParams.get('trip');
+
+  if (tripFilter) {
+    const matched = [];
+    markers.forEach(m => {
+      if (m._pinData.trip === tripFilter) {
+        matched.push(m);
+      } else {
+        map.removeLayer(m);
+      }
+    });
+
+    if (matched.length === 1) {
+      map.setView(matched[0].getLatLng(), 14);
+      matched[0].openPopup();
+    } else if (matched.length > 1) {
+      const group = L.featureGroup(matched);
+      map.fitBounds(group.getBounds().pad(0.4), { maxZoom: 14 });
+    }
+  } else {
+    if (markers.length > 0) {
+      const group = L.featureGroup(markers);
+      map.fitBounds(group.getBounds().pad(0.5), { maxZoom: 5 });
+    }
   }
 });
