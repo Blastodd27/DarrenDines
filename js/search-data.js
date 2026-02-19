@@ -38,7 +38,7 @@ const SEARCH_DATA = [
     image: "images/roti-king-nasi-lemak.jpeg",
     url: "posts/post3.html",
     date: "Feb 19, 2026",
-    trip: "london-2026",
+    trip: "london-june-2025",
     lat: 51.5254,
     lng: -0.1340
   }
