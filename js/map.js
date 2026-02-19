@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
       lng: -73.9851,
       title: "Gallagher's Steakhouse, New York City",
       caption: "A New York institution since 1927. Dry aged beef, wood-fired grills, and the most unexpectedly transcendent tiramisu.",
+      tags: "steak new york nyc dry aged steakhouse gallaghers midtown tiramisu fine dining usa america",
       image: "images/gallaghers-dry-age.jpg",
       postUrl: "posts/post1.html"
     },
@@ -48,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
       lng: -9.3790,
       title: "Homestead Cottage, Doolin",
       caption: "A Michelin-starred cottage near the Cliffs of Moher. Steamed John Dory, spring lamb, and a head chef who drove us to the bus stop.",
+      tags: "ireland doolin michelin fine dining seafood lamb homestead cliffs of moher county clare europe",
       image: "images/homestead-exterior.jpg",
       postUrl: "posts/post2.html"
     }
@@ -132,14 +134,21 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
+      // Require at least 3 characters to avoid noisy partial matches
+      if (query.length < 3) {
+        markers.forEach(m => {
+          if (!map.hasLayer(m)) map.addLayer(m);
+        });
+        return;
+      }
+
       searchTimeout = setTimeout(() => {
         const matched = [];
 
         markers.forEach(m => {
           const data = m._pinData;
-          const match =
-            data.title.toLowerCase().includes(query) ||
-            data.caption.toLowerCase().includes(query);
+          const searchable = (data.title + ' ' + data.caption + ' ' + (data.tags || '')).toLowerCase();
+          const match = searchable.includes(query);
 
           if (match) {
             if (!map.hasLayer(m)) map.addLayer(m);
