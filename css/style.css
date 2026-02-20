@@ -855,16 +855,24 @@ h4 {
 
 /* ---------- Map Page ---------- */
 .map-page {
-  /* Immersive Map: No padding, content starts at top */
+  /* Immersive Map: Robust fullscreen layout for iOS Safari */
   padding-top: 0;
-  height: 100dvh; /* Use dynamic viewport height for iOS Safari */
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
   box-sizing: border-box;
   background: var(--color-dark);
 }
 
 .map-container {
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 #map {
@@ -875,6 +883,11 @@ h4 {
 /* Push map controls down below the navbar */
 .leaflet-top {
   top: calc(var(--nav-height) + 1rem) !important;
+}
+
+/* Prevent controls from hiding under iOS bottom home bar */
+.leaflet-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 /* Leaflet popup overrides */
