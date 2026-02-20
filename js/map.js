@@ -41,7 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
     zoomAnimation: true,
     markerZoomAnimation: true,
     minZoom: 3,
-    maxBounds: [[-90, -180], [90, 180]],
+    // Set vertical limits to +/- 90 (poles) but allow virtually infinite horizontal panning
+    maxBounds: [[-90, -18000], [90, 18000]],
     maxBoundsViscosity: 1.0
   }).setView([25, 10], 3);
 
