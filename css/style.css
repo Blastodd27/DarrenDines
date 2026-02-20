@@ -857,7 +857,7 @@ h4 {
 .map-page {
   /* Immersive Map: No padding, content starts at top */
   padding-top: 0;
-  height: 100vh; 
+  height: 100dvh; /* Use dynamic viewport height for iOS Safari */
   box-sizing: border-box;
   background: var(--color-dark);
 }
