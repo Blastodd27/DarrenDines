@@ -857,22 +857,20 @@ h4 {
 .map-page {
   /* Immersive Map: Robust fullscreen layout for iOS Safari */
   padding-top: 0;
-  position: fixed;
+  position: absolute;
   top: 0;
-  bottom: 0;
   left: 0;
   right: 0;
+  height: 100vh;
+  height: 100lvh;
   width: 100%;
   box-sizing: border-box;
   background: var(--color-dark);
 }
 
 .map-container {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  width: 100%;
+  height: 100%;
 }
 
 #map {
@@ -885,9 +883,9 @@ h4 {
   top: calc(var(--nav-height) + 1rem) !important;
 }
 
-/* Prevent controls from hiding under iOS bottom home bar */
-.leaflet-bottom {
-  padding-bottom: env(safe-area-inset-bottom);
+/* Prevent controls from hiding under iOS bottom home bar and floating address bar */
+.map-page .leaflet-bottom {
+  padding-bottom: 90px;
 }
 
 /* Leaflet popup overrides */
