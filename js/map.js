@@ -44,7 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Set vertical limits to +/- 90 (poles) but allow virtually infinite horizontal panning
     maxBounds: [[-90, -18000], [90, 18000]],
     maxBoundsViscosity: 1.0,
-    worldCopyJump: true
+    worldCopyJump: true,
+    attributionControl: false
   }).setView([25, 10], 3);
 
   // Zoom control intentionally omitted — users pinch-to-zoom on mobile and scroll-wheel on desktop
