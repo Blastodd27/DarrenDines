@@ -85,7 +85,8 @@ document.addEventListener('DOMContentLoaded', () => {
         minWidth: 280,
         closeButton: true,
         className: 'custom-popup',
-        autoPanPaddingTopLeft: [0, 120]
+        autoPanPaddingTopLeft: [40, 120],
+        autoPanPaddingBottomRight: [40, 40]
       });
 
     // Store post data for search
