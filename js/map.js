@@ -39,7 +39,10 @@ document.addEventListener('DOMContentLoaded', () => {
     updateWhenIdle: true,
     zoomSnap: 1,
     zoomAnimation: true,
-    markerZoomAnimation: true
+    markerZoomAnimation: true,
+    minZoom: 3,
+    maxBounds: [[-90, -180], [90, 180]],
+    maxBoundsViscosity: 1.0
   }).setView([25, 10], 3);
 
   // Zoom control intentionally omitted — users pinch-to-zoom on mobile and scroll-wheel on desktop
