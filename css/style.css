@@ -854,15 +854,24 @@ h4 {
 }
 
 /* ---------- Map Page ---------- */
+
+html.map-html,
+body.map-body {
+  height: 100%;
+  height: -webkit-fill-available;
+  width: 100%;
+  background-color: var(--color-dark);
+  overflow: hidden; /* Prevent native scrolling behind the map */
+}
+
 .map-page {
   /* Immersive Map: Robust fullscreen layout for iOS Safari */
   padding-top: 0;
   position: absolute;
   top: 0;
+  bottom: 0;
   left: 0;
   right: 0;
-  height: 100vh;
-  height: 100lvh;
   width: 100%;
   box-sizing: border-box;
   background: var(--color-dark);
