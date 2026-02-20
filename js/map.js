@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Set vertical limits to +/- 90 (poles) but allow virtually infinite horizontal panning
     maxBounds: [[-90, -18000], [90, 18000]],
     maxBoundsViscosity: 1.0,
+    worldCopyJump: true,
     attributionControl: false
   }).setView([25, 10], 3);
 
@@ -83,23 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
     popupAnchor: [0, -44]
   });
 
-  // Helper to create "ghost" markers for seamless infinite horizontal panning
-  function createRepeatingMarker(lat, lng, icon, popupContent, popupOptions, postData, markersArray) {
-    const coords = [
-      [lat, lng],        // Main marker
-      [lat, lng - 360],  // West ghost
-      [lat, lng + 360]   // East ghost
-    ];
-
-    coords.forEach(coord => {
-      const marker = L.marker(coord, { icon: icon })
-        .addTo(map)
-        .bindPopup(popupContent, popupOptions);
-      marker._pinData = postData; // Store post data for search
-      markersArray.push(marker);
-    });
-  }
-
   // ---------- Add Pins to Map from SEARCH_DATA ----------
   const markers = [];
 
@@ -129,23 +113,21 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     `;
 
-    // 3. Create repeating markers and bind popup
-    createRepeatingMarker(
-      post.lat,
-      post.lng,
-      pinIcon,
-      popupContent,
-      {
+    // 3. Create marker and bind popup
+    const marker = L.marker([post.lat, post.lng], { icon: pinIcon })
+      .addTo(map)
+      .bindPopup(popupContent, {
         maxWidth: 280,
         minWidth: 280,
         closeButton: true,
         className: 'custom-popup',
         autoPanPaddingTopLeft: [40, 120],
         autoPanPaddingBottomRight: [40, 40]
-      },
-      post, // Pass post data for _pinData
-      markers // Pass markers array to push into
-    );
+      });
+
+    // Store post data for search
+    marker._pinData = post;
+    markers.push(marker);
   });
 
   // ---------- Search Pins ----------
