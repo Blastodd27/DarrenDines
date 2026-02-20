@@ -102,13 +102,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. Create custom popup HTML
     const popupContent = `
-      <div class="custom-popup-content">
-        ${post.image ? `<img src="${post.image}" alt="${post.title}" class="popup-img" />` : ''}
-        <div class="popup-text">
-          <h4 class="popup-title">${post.title}</h4>
-          ${post.trip ? `<span class="popup-label label">${post.trip.replace(/-/g, ' ')}</span>` : ''}
-          <p class="popup-excerpt">${post.excerpt}</p>
-          <a href="${post.url}" class="popup-link">Read Story &rarr;</a>
+      <div class="popup-card" onclick="window.open('${post.url}', '_blank')">
+        <img src="${post.image}" alt="${post.title}" />
+        <div class="popup-card-body">
+          <h4>${post.title}</h4>
+          <p>${post.excerpt}</p>
+          <span class="popup-link">Read Blog Post &rarr;</span>
         </div>
       </div>
     `;
