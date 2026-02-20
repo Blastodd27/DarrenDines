@@ -44,7 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Set vertical limits to +/- 90 (poles) but allow virtually infinite horizontal panning
     maxBounds: [[-90, -18000], [90, 18000]],
     maxBoundsViscosity: 1.0,
-    worldCopyJump: true,
     attributionControl: false
   }).setView([25, 10], 3);
 
@@ -58,14 +57,48 @@ document.addEventListener('DOMContentLoaded', () => {
     keepBuffer: 4
   }).addTo(map);
 
-  // ---------- Custom Pin Icon ----------
-  const pinIcon = L.divIcon({
-    className: 'custom-pin-wrapper',
+  // ---------- Custom Pin Icons ----------
+  // ---------- Custom Pin Icons ----------
+  const iconFood = L.divIcon({
+    className: 'custom-pin-wrapper food',
     html: '<div class="custom-pin"></div>',
     iconSize: [32, 42],
     iconAnchor: [16, 42],
     popupAnchor: [0, -44]
   });
+
+  const iconCoffee = L.divIcon({
+    className: 'custom-pin-wrapper coffee',
+    html: '<div class="custom-pin"></div>',
+    iconSize: [32, 42],
+    iconAnchor: [16, 42],
+    popupAnchor: [0, -44]
+  });
+
+  const iconDrink = L.divIcon({
+    className: 'custom-pin-wrapper drink',
+    html: '<div class="custom-pin"></div>',
+    iconSize: [32, 42],
+    iconAnchor: [16, 42],
+    popupAnchor: [0, -44]
+  });
+
+  // Helper to create "ghost" markers for seamless infinite horizontal panning
+  function createRepeatingMarker(lat, lng, icon, popupContent, popupOptions, postData, markersArray) {
+    const coords = [
+      [lat, lng],        // Main marker
+      [lat, lng - 360],  // West ghost
+      [lat, lng + 360]   // East ghost
+    ];
+
+    coords.forEach(coord => {
+      const marker = L.marker(coord, { icon: icon })
+        .addTo(map)
+        .bindPopup(popupContent, popupOptions);
+      marker._pinData = postData; // Store post data for search
+      markersArray.push(marker);
+    });
+  }
 
   // ---------- Add Pins to Map from SEARCH_DATA ----------
   const markers = [];
@@ -73,31 +106,46 @@ document.addEventListener('DOMContentLoaded', () => {
   SEARCH_DATA.forEach(post => {
     if (!post.lat || !post.lng) return; // skip entries without coordinates
 
+    // 1. Determine icon
+    let pinIcon = iconFood;
+    if (post.tags) {
+      if (post.tags.includes("coffee") || post.tags.includes("cafe")) {
+        pinIcon = iconCoffee;
+      } else if (post.tags.includes("bar") || post.tags.includes("drinks")) {
+        pinIcon = iconDrink;
+      }
+    }
+
+    // 2. Create custom popup HTML
     const popupContent = `
-      <div class="popup-card" onclick="window.open('${post.url}', '_blank')">
-        <img src="${post.image}" alt="${post.title}" />
-        <div class="popup-card-body">
-          <h4>${post.title}</h4>
-          <p>${post.excerpt}</p>
-          <span class="popup-link">Read Blog Post →</span>
+      <div class="custom-popup-content">
+        ${post.image ? `<img src="${post.image}" alt="${post.title}" class="popup-img" />` : ''}
+        <div class="popup-text">
+          <h4 class="popup-title">${post.title}</h4>
+          ${post.trip ? `<span class="popup-label label">${post.trip.replace(/-/g, ' ')}</span>` : ''}
+          <p class="popup-excerpt">${post.excerpt}</p>
+          <a href="${post.url}" class="popup-link">Read Story &rarr;</a>
         </div>
       </div>
     `;
 
-    const marker = L.marker([post.lat, post.lng], { icon: pinIcon })
-      .addTo(map)
-      .bindPopup(popupContent, {
+    // 3. Create repeating markers and bind popup
+    createRepeatingMarker(
+      post.lat,
+      post.lng,
+      pinIcon,
+      popupContent,
+      {
         maxWidth: 280,
         minWidth: 280,
         closeButton: true,
         className: 'custom-popup',
         autoPanPaddingTopLeft: [40, 120],
         autoPanPaddingBottomRight: [40, 40]
-      });
-
-    // Store post data for search
-    marker._pinData = post;
-    markers.push(marker);
+      },
+      post, // Pass post data for _pinData
+      markers // Pass markers array to push into
+    );
   });
 
   // ---------- Search Pins ----------
