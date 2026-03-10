@@ -122,7 +122,7 @@ h4 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 var(--space-lg);
+  padding: 0 max(var(--space-lg), env(safe-area-inset-right, 0px)) 0 max(var(--space-lg), env(safe-area-inset-left, 0px));
   z-index: 1000;
 }
 
@@ -861,7 +861,7 @@ body.map-body {
   height: -webkit-fill-available;
   height: 100dvh;
   width: 100%;
-  background-color: var(--color-dark);
+  background-color: #c8d7df; /* Match map ocean/water color for Liquid Glass tint */
   overflow: hidden; /* Prevent native scrolling behind the map */
 }
 
@@ -874,19 +874,36 @@ body.map-body {
   left: 0;
   right: 0;
   width: 100%;
-  height: 100dvh; /* iOS 26: extend behind floating bottom bar */
+  height: 100dvh;
+  /* Extend into safe areas so content shows behind iOS 26 Liquid Glass toolbar */
+  padding-bottom: env(safe-area-inset-bottom, 0px);
   box-sizing: border-box;
-  background: var(--color-dark);
+  background: #c8d7df; /* Map water color — visible through Liquid Glass */
 }
 
 .map-container {
   width: 100%;
   height: 100%;
+  position: relative;
 }
 
 #map {
   width: 100%;
   height: 100%;
+}
+
+/* Gradient overlay at bottom of map — blends into a natural blue/ocean tone
+   so the area near the iOS floating address bar looks intentional */
+.map-container::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(to bottom, transparent 0%, rgba(172, 199, 214, 0.55) 100%);
+  pointer-events: none;
+  z-index: 400; /* Above map tiles but below popups/controls */
 }
 
 /* Push map controls down below the navbar */
@@ -896,7 +913,7 @@ body.map-body {
 
 /* Prevent controls from hiding under iOS bottom home bar and floating address bar */
 .map-page .leaflet-bottom {
-  padding-bottom: 90px;
+  padding-bottom: calc(90px + env(safe-area-inset-bottom, 0px));
 }
 
 /* Leaflet popup overrides */
@@ -1075,6 +1092,9 @@ body.map-body {
     position: fixed;
     width: 100%;
     height: 100%;
+    /* Extend content into safe areas for iOS 26 Liquid Glass */
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
   }
 
   .about-grid {
